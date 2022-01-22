@@ -3,11 +3,11 @@
 // date_default_timezone_get("Asia/Jakarta");
 
 require 'functions.php';
-$camaba = query('SELECT * FROM calon_mhs');
+$dosen = query('SELECT * FROM daftar_dosen');
 
 
 if (isset($_POST['cari'])) {
-  $camaba = cari($_POST['keyword']);
+  $dosen = caridosen($_POST['keyword']);
 }
 
 ?>
@@ -32,7 +32,7 @@ if (isset($_POST['cari'])) {
   <!--- navbar --->
   <nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand text-white" href="#">UNIVERSITAS ISLAM SYEKH YUSUF TANGERANG</a>
+      <a class="navbar-brand text-white" href="#">SISTEM PENERIMAAN MAHASISWA BARU</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -77,7 +77,7 @@ if (isset($_POST['cari'])) {
     </div>
     <div class="col-md-10 p-2 pt-5">
       <!--konten-->
-      <h3> <i class="fas fa-users"></i> DAFTAR CALON MAHASISWA </h3>
+      <h3> <i class="fas fa-users"></i> DAFTAR DOSEN </h3>
       <hr>
 
       <!--pencarian data-->
@@ -92,29 +92,32 @@ if (isset($_POST['cari'])) {
         <thead>
           <tr>
             <th scope="col">NO</th>
-            <th scope="col">NAMA LENGKAP</th>
-            <th scope="col">FOTO MABA</th>
+            <th scope="col">NIDN</th>
+            <th scope="col">NAMA DOSEN</th>
+            <th scope="col">EMAIL</th>
             <th scope="col">JENIS OPSI</th>
           </tr>
         </thead>
 
-        <?php if (empty($camaba)) : ?>
+        <?php if (empty($dosen)) : ?>
           <tr>
             <td colspan="4" class="alert alert-danger text-center" role="alert">
               <p><b>
-                  DATA MAHASISWA TIDAK DITEMUKAN</p>
+                  DATA DOSEN TIDAK DITEMUKAN</p>
               </b>
             </td>
           </tr>
         <?php endif; ?>
         <tbody>
           <?php $no = 1; ?>
-          <?php foreach ($camaba as $cmb) : ?>
+          <?php foreach ($dosen as $dsn) : ?>
             <tr>
               <th scope="row"><?php echo $no; ?></th>
-              <td><?php echo $cmb['nama']; ?></td>
-              <td><img src="image/<?php echo $cmb['foto_maba']; ?> " width="100px"></td>
-              <td><a href="detail.php?id=<?= $cmb['id'] ?>" class="btn btn-warning" role="button">DETAIL</a></td>
+              <td><?php echo $dsn['nama']; ?></td>
+              <td><?php echo $dsn['nidn']; ?></td>
+              <td><?php echo $dsn['email']; ?></td>
+              <td><img src="image/<?php echo $dsn['foto_maba']; ?> " width="100px"></td>
+              <td><a href="detaildosen.php?id=<?= $dsn['id'] ?>" class="btn btn-warning" role="button">DETAIL</a></td>
             </tr>
             <?php $no++ ?>
           <?php endforeach ?>

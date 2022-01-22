@@ -3,12 +3,14 @@
 // date_default_timezone_get("Asia/Jakarta");
 
 require 'functions.php';
-$camaba = query('SELECT * FROM calon_mhs');
 
-
-if (isset($_POST['cari'])) {
-  $camaba = cari($_POST['keyword']);
+if (!isset($_GET['id'])) {
+  header("location: index.php");
+  exit;
 }
+
+$id  = $_GET['id'];
+$dosen = query("SELECT * FROM daftar_dosen WHERE id =$id");
 
 ?>
 
@@ -32,7 +34,7 @@ if (isset($_POST['cari'])) {
   <!--- navbar --->
   <nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand text-white" href="#">UNIVERSITAS ISLAM SYEKH YUSUF TANGERANG</a>
+      <a class="navbar-brand text-white" href="#">SISTEM PENERIMAAN MAHASISWA BARU</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -77,49 +79,25 @@ if (isset($_POST['cari'])) {
     </div>
     <div class="col-md-10 p-2 pt-5">
       <!--konten-->
-      <h3> <i class="fas fa-users"></i> DAFTAR CALON MAHASISWA </h3>
+      <h3> <i class="fas fa-users"></i> DAFTAR DOSEN </h3>
       <hr>
 
-      <!--pencarian data-->
-      <form action="" method="POST">
-        <input type="text" id="keyword" size="50" name="keyword" placeholder="masukan keyword" autocomplete="off">
-        <button type="submit" class="btn btn-primary" name="cari">CARI</button>
-      </form>
-      <br>
-      <hr>
-
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">NO</th>
-            <th scope="col">NAMA LENGKAP</th>
-            <th scope="col">FOTO MABA</th>
-            <th scope="col">JENIS OPSI</th>
-          </tr>
-        </thead>
-
-        <?php if (empty($camaba)) : ?>
-          <tr>
-            <td colspan="4" class="alert alert-danger text-center" role="alert">
-              <p><b>
-                  DATA MAHASISWA TIDAK DITEMUKAN</p>
-              </b>
-            </td>
-          </tr>
-        <?php endif; ?>
-        <tbody>
-          <?php $no = 1; ?>
-          <?php foreach ($camaba as $cmb) : ?>
-            <tr>
-              <th scope="row"><?php echo $no; ?></th>
-              <td><?php echo $cmb['nama']; ?></td>
-              <td><img src="image/<?php echo $cmb['foto_maba']; ?> " width="100px"></td>
-              <td><a href="detail.php?id=<?= $cmb['id'] ?>" class="btn btn-warning" role="button">DETAIL</a></td>
-            </tr>
-            <?php $no++ ?>
-          <?php endforeach ?>
-        </tbody>
-      </table>
+      <ul class="list-group">
+        <li class="list-group-item active"><?= $dosen['nama']; ?></li>
+        <li class="list-group-item ">NIDN :<?= $dosen['nidn']; ?></li>
+        <li class="list-group-item ">EMAIL :<?= $dosen['email']; ?></li>
+        <li class="list-group-item ">JENIS KELAMIN :<?= $dosen['jenis_kelamin']; ?></li>
+        <li class="list-group-item ">ALAMAT RUMAH :<?= $dosen['alamat']; ?></li>
+        <li class="list-group-item ">AGAMA :<?= $dosen['agama']; ?></li>
+        <li class="list-group-item ">PENDIDIKAN S1 :<?= $dosen['pendidikan_s1']; ?></li>
+        <li class="list-group-item ">PENDIDIKAN S2 :<?= $dosen['pendidikan_s2']; ?></li>
+        <li class="list-group-item ">PENDIDIKAN S3 :<?= $dosen['pendidikan_s3']; ?></li>
+        <li class="list-group-item "><img src="foto/<?= $dosen['foto']; ?>" alt=""></li>
+        <li class="list-group-item ">
+          <a href="hapusdosen.php?id=<?= $dosen['id'] ?>" onclick="return confirm('apakah anda yakin akan menghapus data ini');" class="btn btn-danger" role="button">HAPUS</a>
+          <a href="dosen.php" class="btn btn-primary" role="button">KEMBALI</a>
+        </li>
+      </ul>
     </div>
   </div>
 

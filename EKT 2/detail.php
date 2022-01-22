@@ -68,7 +68,7 @@ $camaba = query("SELECT * FROM calon_mhs WHERE id =$id");
           <hr>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="#"><i class="fas fa-chalkboard-teacher"></i> DAFTAR DOSEN</a>
+          <a class="nav-link text-white" href="dosen.php"><i class="fas fa-chalkboard-teacher"></i> DAFTAR DOSEN</a>
           <hr>
         </li>
         <li class="nav-item">

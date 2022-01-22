@@ -116,7 +116,7 @@ if (isset($_POST['edit'])) {
         </div>
         <div class="mb-3">
           <label for="foto" class="form-label">FOTO :</label>
-          <input type="text" class="form-control" id="foto" value="<?= $camaba['foto'] ?>" placeholder="FOTO MABA" name="foto" Required autocomplete="off">
+          <input type="text" class="form-control" id="foto_maba" value="<?= $camaba['foto_maba'] ?>" placeholder="FOTO MABA" name="foto_maba" Required autocomplete="off">
         </div>
         <button type="submit" class="btn btn-primary" name="edit">SIMPAN</button>
       </form>
